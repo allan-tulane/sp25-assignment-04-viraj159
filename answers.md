@@ -12,7 +12,6 @@
 
 - **1b.** Insert: Insert places the new element as the rightmost leaf and bubbles up by comparing with the parent. Each comparison is O(1) work, and there are at most O(log_d n) levels to traverse.
 Thus, insert takes O(log_d n) work.
-
 Delete-min:
 Delete-min removes the root, moves the rightmost leaf to the root, and bubbles down to restore the heap property.
 At each level, to find the minimum child requires O(d) comparisons, and there are O(log_d n) levels to traverse.
