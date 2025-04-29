@@ -59,10 +59,20 @@ k = 2: Now all nodes are allowed as intermediates. APSP(i, j, 2) = min(APSP(i, j
 
 
 
-- **3a.**
+- **3a.** Yes, the MST is also a solution to the MMET. In an MST, if there were a spanning tree with a smaller maximum edge weight, then we could replace the largest edge in the MST with a smaller one, which would lead to a smaller total weight — contradicting the minimality of the MST. Thus, MST also minimizes the maximum edge weight.
 
 
 - **3b.**
+1. Compute the MST (call it T) using Kruskal's or Prim's algorithm.
+
+2. For each edge e in T: Remove e from T, which splits it into two components, Find the minimum-weight edge e' not in T that reconnects these two components, Create a new tree by replacing e with e'.
+
+3. Among all trees formed this way, choose the one with the minimum total weight. 
 
 
-- **3c.**
+- **3c.** Building the MST takes O(|E| log |V|) using Kruskal’s algorithm with a union-find data structure.
+For each edge in the MST (|V| - 1 edges):
+Finding a replacement edge naively can take O(|E|) work per edge.
+So overall work is O(|V| × |E|) to find all candidates.
+Total work:
+O(|E| log |V| + |V||E|).
