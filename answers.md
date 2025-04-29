@@ -39,21 +39,23 @@ This achieves overall work O(|E|).
 
 k = -1: Only direct edges are allowed. So APSP(i, j, -1) is the weight of the direct edge from i to j if it exists, or ∞ otherwise. Diagonal entries (i = j) are 0.
 
-k = 0: Now, paths are allowed to go through node 0. 
+k = 0: Now, paths are allowed to go through node 0. For each i, j: APSP(i, j, 0) = min(APSP(i, j, -1), APSP(i, 0, -1) + APSP(0, j, -1))
 
-k = 1: Paths are allowed through nodes {0, 1}.
+k = 1: Paths are allowed through nodes {0, 1}: APSP(i, j, 1) = min(APSP(i, j, 0), APSP(i, 1, 0) + APSP(1, j, 0))
 
-k = 2: Now all nodes are allowed as intermediates. In this case, no new shorter paths are found, so values remain the same.
-
-
-- **2b.**
+k = 2: Now all nodes are allowed as intermediates. APSP(i, j, 2) = min(APSP(i, j, 1), APSP(i, 2, 1) + APSP(2, j, 1)). In this case, no new shorter paths are found, so values remain the same.
 
 
-- **2c.**
+- **2b.** Yes, APSP(i, j, 2) can be written as: APSP(i, j, 2) = min(APSP(i, j, 1), APSP(i, 2, 1) + APSP(2, j, 1)). In other words, either the shortest path from i to j without using vertex 2, or a path that goes through vertex 2.
 
-- **2d.**
 
-- **2e.**
+- **2c.** APSP(i, j, k) = min(APSP(i, j, k-1), APSP(i, k, k-1) + APSP(k, j, k-1)). The shortest path from i to j using vertices {0, ..., k} is either: the shortest path without using vertex k, or the shortest path from i to k, then from k to j.
+
+
+- **2d.** Total number of distinct subproblems: O(n³), where n = number of vertices. Each subproblem is solved in O(1) work using memoization. Therefore, total work = O(n³).
+
+
+- **2e.** Johnson's algorithm runs in O(VE + V log V) time with Fibonacci heaps, or O(VE log V) with binary heaps. Dynamic programming algorithm runs in O(V³) time. Dynamic programming is preferable when: the graph is dense (E ≈ V²), simpler code is needed, and negative edge weights are present (but no negative cycles). Johnson’s algorithm is preferable when: the graph is sparse (E ≪ V²), and faster performance is needed on large sparse graphs.
 
 
 
