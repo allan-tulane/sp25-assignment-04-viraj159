@@ -35,7 +35,15 @@ Thus, the best choice is: d = |V|^ε
 This achieves overall work O(|E|).
 
 
-- **2a.**
+- **2a.** Compute APSP(i, j, k), the shortest path from node i to node j using only intermediate nodes {0, 1, ..., k}. Do this incrementally for k = -1, 0, 1, 2.
+
+k = -1: Only direct edges are allowed. So APSP(i, j, -1) is the weight of the direct edge from i to j if it exists, or ∞ otherwise. Diagonal entries (i = j) are 0.
+
+k = 0: Now, paths are allowed to go through node 0. 
+
+k = 1: Paths are allowed through nodes {0, 1}.
+
+k = 2: Now all nodes are allowed as intermediates. In this case, no new shorter paths are found, so values remain the same.
 
 
 - **2b.**
